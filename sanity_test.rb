@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 gem 'minitest'
 require 'minitest/autorun'
 
