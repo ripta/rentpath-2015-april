@@ -16,7 +16,7 @@ class House
   ]
 
   def recite
-    1.upto(12).collect {|i| line(i)}.join("\n")
+    PHRASES.size.times.collect { |i| line(i + 1) }.join("\n")
   end
 
   def phrase(num)
