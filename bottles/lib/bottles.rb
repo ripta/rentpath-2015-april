@@ -9,16 +9,63 @@ class Bottles
   end
 
   def verse(number)
-    case number
-    when 0
-      "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
-    when 1
-      "1 bottle of beer on the wall, 1 bottle of beer.\nTake it down and pass it around, no more bottles of beer on the wall.\n"
-    when 2
-      "2 bottles of beer on the wall, 2 bottles of beer.\nTake one down and pass it around, 1 bottle of beer on the wall.\n"
+    container_number      = ContainerNumber.new(number)
+    next_container_number = ContainerNumber.new(container_number.successor)
+    "#{container_number.to_s.capitalize} of beer on the wall, " +
+    "#{container_number} of beer.\n" +
+    "#{container_number.action}, " +
+    "#{next_container_number} of beer on the wall.\n"
+  end
+end
+
+class ContainerNumber
+  attr_reader :number
+
+  def initialize(number)
+    @number = number
+  end
+
+  def to_s
+    "#{amount} #{container}"
+  end
+
+  def container
+    if number == 1
+      "bottle"
     else
-      "#{number} bottles of beer on the wall, #{number} bottles of beer.\nTake one down and pass it around, #{number-1} bottles of beer on the wall.\n"
+      "bottles"
     end
   end
 
+  def pronoun
+    if number == 1
+      "it"
+    else
+      "one"
+    end
+  end
+
+  def amount
+    if number == 0
+      "no more"
+    else
+      number.to_s
+    end
+  end
+
+  def action
+    if number == 0
+      "Go to the store and buy some more"
+    else
+      "Take #{pronoun} down and pass it around"
+    end
+  end
+
+  def successor
+    if number == 0
+      99
+    else
+      number - 1
+    end
+  end
 end
